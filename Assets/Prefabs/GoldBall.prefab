@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5678956299274213215}
   m_Layer: 0
   m_Name: GoldBall
-  m_TagString: Ball
+  m_TagString: Gball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

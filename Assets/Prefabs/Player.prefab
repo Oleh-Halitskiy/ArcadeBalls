@@ -44,5 +44,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Camera: {fileID: 0}
-  Ball: {fileID: 299462818952655616, guid: a0854456a9954d94980267a10ba22a05, type: 3}
+  Balls:
+  - {fileID: 3118109009253124257, guid: 7b6f6279186a1634ba01060e9d0a5835, type: 3}
+  - {fileID: 2801624888198525148, guid: 0ca7044bdcff6a149a34520290a2b27b, type: 3}
+  - {fileID: 8722409604459772851, guid: f2ed306a978ec3b48a1f730b04a8a153, type: 3}
   BallSpeed: 30
