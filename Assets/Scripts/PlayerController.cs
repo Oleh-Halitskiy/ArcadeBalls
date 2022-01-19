@@ -12,14 +12,12 @@ public class PlayerController : MonoBehaviour
     private Camera cameraComponent;
     private Vector3 target;
     private Vector3 difference;
-    private Vector3 screenToWorldPointVector;
     private Vector2 direction;
     private float rotationZ;
     private float distance;
 
     void Start()
     {
-      screenToWorldPointVector = new Vector3();
       cameraComponent = Camera.GetComponent<Camera>();  
     }
     private void Update()
@@ -32,10 +30,7 @@ public class PlayerController : MonoBehaviour
     }
     private void CalculateDirection()
     {
-        screenToWorldPointVector.x = Input.mousePosition.x;
-        screenToWorldPointVector.y = Input.mousePosition.y;
-        screenToWorldPointVector.z = Camera.transform.position.z;
-        target = cameraComponent.ScreenToWorldPoint(screenToWorldPointVector);
+        target = cameraComponent.ScreenToWorldPoint(Input.mousePosition);
         difference = target - transform.position;
         rotationZ = Mathf.Atan2(difference.x, difference.y) * Mathf.Rad2Deg;
         distance = difference.magnitude;

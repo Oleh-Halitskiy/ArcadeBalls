@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 299462818952655618}
   - component: {fileID: 299462818952655617}
   - component: {fileID: 299462818952655645}
+  - component: {fileID: -2184829741397005058}
   m_Layer: 0
   m_Name: Ball
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,10 +112,24 @@ CircleCollider2D:
   m_GameObject: {fileID: 299462818952655616}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 69790cf242984b946b25282f3e0c0a27, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &-2184829741397005058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 299462818952655616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa4276f0402776340b1a03aad6b2b72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MagnetRadius: 1
+  MagnetForce: 400
