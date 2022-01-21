@@ -8,7 +8,8 @@ public class BallController : MonoBehaviour
     [SerializeField] private float MagnetRadius = 5;
     [SerializeField] private float MagnetForce = 5;
     private List<GameObject> ballsToDestroy;
-    private GameObject tree;
+    private bool canDestroy;
+    public bool isFromPlayer;
     private void Start()
     {
         ballsToDestroy = new List<GameObject>();
@@ -31,19 +32,29 @@ public class BallController : MonoBehaviour
     }
     private void Update()
     {
-       if(ballsToDestroy.Count >= 3)
+        StackDestroy();
+    }
+
+    private void StackDestroy()
+    {
+        if (ballsToDestroy.Count >= 3 && canDestroy)
         {
-            foreach(GameObject gameObj in ballsToDestroy)
+            foreach (GameObject gameObj in ballsToDestroy)
             {
-                Destroy(gameObj,0.01f);
+                Destroy(gameObj, 0.01f);
             }
         }
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == gameObject.tag)
         {
             ballsToDestroy.Add(collision.gameObject);
+            if(collision.gameObject.GetComponent<BallController>().isFromPlayer == true)
+            {
+                canDestroy = true;
+            }
         }
     }
     private void OnCollisionExit2D(Collision2D collision)

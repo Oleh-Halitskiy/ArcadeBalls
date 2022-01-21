@@ -44,9 +44,10 @@ public class PlayerController : MonoBehaviour
     }
     private void Shoot(Vector2 direction, float rotation)
     {
-        GameObject ball = Instantiate(Balls[Random.Range(0,3)]);
+        GameObject ball = Instantiate(Balls[Random.Range(0,Balls.Count)]);
         ball.transform.position = transform.position;
         ball.transform.rotation = Quaternion.Euler(0f, 0f, rotation);
         ball.GetComponent<Rigidbody2D>().velocity = direction * BallSpeed;
+        ball.GetComponent<BallController>().isFromPlayer = true;
     }
 }
