@@ -15,6 +15,10 @@ public class PlayerController : MonoBehaviour
     private Vector2 direction;
     private float rotationZ;
     private float distance;
+    public List <GameObject> BallsToSpawn
+    {
+        get { return Balls; }
+    }
 
     void Start()
     {

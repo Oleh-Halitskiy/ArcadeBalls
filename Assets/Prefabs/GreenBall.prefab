@@ -132,4 +132,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MagnetRadius: 1
-  MagnetForce: 400
+  MagnetForce: 1600

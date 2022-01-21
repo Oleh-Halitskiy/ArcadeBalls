@@ -7,6 +7,13 @@ public class BallController : MonoBehaviour
     [Header("Magnet settings")]
     [SerializeField] private float MagnetRadius = 5;
     [SerializeField] private float MagnetForce = 5;
+    private List<GameObject> ballsToDestroy;
+    private GameObject tree;
+    private void Start()
+    {
+        ballsToDestroy = new List<GameObject>();
+        ballsToDestroy.Add(gameObject);
+    }
     void FixedUpdate()
     {
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(this.transform.position, MagnetRadius);
@@ -24,20 +31,26 @@ public class BallController : MonoBehaviour
     }
     private void Update()
     {
-        
+       if(ballsToDestroy.Count >= 3)
+        {
+            foreach(GameObject gameObj in ballsToDestroy)
+            {
+                Destroy(gameObj,0.01f);
+            }
+        }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == gameObject.tag)
         {
-            Debug.Log("in list");
+            ballsToDestroy.Add(collision.gameObject);
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
         if(collision.gameObject.tag == gameObject.tag)
         {
-            Debug.Log("out of list");
+            ballsToDestroy.Remove(collision.gameObject);
         }
     }
 }
