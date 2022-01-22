@@ -10,6 +10,11 @@ public class BallController : MonoBehaviour
     private List<GameObject> ballsToDestroy;
     private bool canDestroy;
     public bool isFromPlayer;
+    public float MgtRadius
+    {
+        get { return MagnetRadius; }
+        set { MagnetRadius = value; }
+    }
     private void Start()
     {
         ballsToDestroy = new List<GameObject>();
@@ -41,7 +46,10 @@ public class BallController : MonoBehaviour
         {
             foreach (GameObject gameObj in ballsToDestroy)
             {
-                Destroy(gameObj, 0.01f);
+                if (gameObj != null)
+                {
+                    gameObj.GetComponent<BallController>().Explode();
+                }
             }
         }
     }
@@ -54,6 +62,7 @@ public class BallController : MonoBehaviour
             if(collision.gameObject.GetComponent<BallController>().isFromPlayer == true)
             {
                 canDestroy = true;
+                return;
             }
         }
     }
@@ -63,6 +72,10 @@ public class BallController : MonoBehaviour
         {
             ballsToDestroy.Remove(collision.gameObject);
         }
+    }
+    private void Explode()
+    {
+        Destroy(gameObject, 0.01f);
     }
 }
 

@@ -7,14 +7,20 @@ public class PlayerController : MonoBehaviour
     [Header("GameObjects")]
     [SerializeField] private GameObject Camera;
     [SerializeField] private List<GameObject> Balls;
+    [SerializeField] private List<GameObject> Sprites;
     [Header("Shooting settings")]
     [SerializeField] private float BallSpeed;
+    [Header("Other settings")]
+    [SerializeField] private GameObject NextPos1;
+    [SerializeField] private GameObject NextPos2;
+    private List<GameObject> sprites;
     private Camera cameraComponent;
     private Vector3 target;
     private Vector3 difference;
     private Vector2 direction;
     private float rotationZ;
     private float distance;
+    GameObject ball;
     public List <GameObject> BallsToSpawn
     {
         get { return Balls; }
@@ -27,10 +33,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         CalculateDirection();
-        if(Input.GetMouseButtonDown(0))
-        {
-            Shoot(direction,rotationZ);
-        }
+        Shoot(direction,rotationZ); 
     }
     private void CalculateDirection()
     {
@@ -44,10 +47,28 @@ public class PlayerController : MonoBehaviour
     }
     private void Shoot(Vector2 direction, float rotation)
     {
-        GameObject ball = Instantiate(Balls[Random.Range(0,Balls.Count)]);
-        ball.transform.position = transform.position;
-        ball.transform.rotation = Quaternion.Euler(0f, 0f, rotation);
-        ball.GetComponent<Rigidbody2D>().velocity = direction * BallSpeed;
-        ball.GetComponent<BallController>().isFromPlayer = true;
+       if (ball == null)
+        {
+            ball = Instantiate(Balls[Random.Range(0, Balls.Count)]);
+            ball.transform.position = transform.position;
+            ball.transform.rotation = Quaternion.Euler(0f, 0f, rotation);
+            ball.GetComponent<Rigidbody2D>().isKinematic = true;
+            ball.GetComponent<BallController>().MgtRadius = 0;
+            ball.GetComponent<CircleCollider2D>().enabled = false;
+        }
+        if (Input.GetMouseButtonDown(0) && ball != null)
+        {
+            ball.GetComponent<Rigidbody2D>().isKinematic = false;
+            ball.GetComponent<Rigidbody2D>().velocity = direction * BallSpeed;
+            ball.GetComponent<BallController>().isFromPlayer = true;
+            ball.GetComponent<CircleCollider2D>().enabled = true;
+            ball.GetComponent<BallController>().MgtRadius = 1;
+            ball = null;
+        }
+
+    }
+    private void GenerateBalls()
+    {
+        
     }
 }
