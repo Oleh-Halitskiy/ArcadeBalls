@@ -75,6 +75,7 @@ public class BallController : MonoBehaviour
     }
     private void Explode()
     {
+        EventManager.StartPointAddedEvent(10);
         Destroy(gameObject, 0.01f);
     }
 }
