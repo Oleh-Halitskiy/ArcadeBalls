@@ -62,16 +62,6 @@ public class BallController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<BallController>() != null)
-        {
-          /*
-            foreach (ContactPoint2D contact in collision.contacts)
-            {
-                FixedJoint2D fixedJoint = gameObject.AddComponent<FixedJoint2D>();
-                fixedJoint.anchor = contact.point;
-                fixedJoint.connectedBody = collision.rigidbody;
-            }
-          */
             if (collision.gameObject.tag == gameObject.tag)
             {
                 collision.gameObject.transform.parent = gameObject.transform;
@@ -83,6 +73,13 @@ public class BallController : MonoBehaviour
                     return;
                 }
             }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == gameObject.tag)
+        {
+            test = false;
+            ballsToDestroy.Remove(collision.gameObject);
         }
     }
     public void AddToList(GameObject ball)
@@ -105,15 +102,6 @@ public class BallController : MonoBehaviour
         {
             EventManager.StartPointAddedEvent(10);
             // Instantiate(Explosion, transform.position, transform.rotation); // explosions here 
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == gameObject.tag)
-        {
-            test = false;
-            ballsToDestroy.Remove(collision.gameObject);
-            //ballsToDestroy.Remove(gameObject);
         }
     }
 }

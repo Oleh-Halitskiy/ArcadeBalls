@@ -12,35 +12,8 @@ public class CollidersController : MonoBehaviour
     [SerializeField] private Transform leftCollider;
     [SerializeField] private Transform rightCollider;
     private Vector3 cameraPos;
-    // Use this for initialization
     void Start()
     {
-        /*
-        //Generate our empty objects
-        topCollider = new GameObject().transform;
-        bottomCollider = new GameObject().transform;
-        rightCollider = new GameObject().transform;
-        leftCollider = new GameObject().transform;
-
-        //Name our objects 
-        topCollider.name = "TopCollider";
-        bottomCollider.name = "BottomCollider";
-        rightCollider.name = "RightCollider";
-        leftCollider.name = "LeftCollider";
-
-        //Add the colliders
-        topCollider.gameObject.AddComponent<BoxCollider2D>();
-        bottomCollider.gameObject.AddComponent<BoxCollider2D>();
-        rightCollider.gameObject.AddComponent<BoxCollider2D>();
-        leftCollider.gameObject.AddComponent<BoxCollider2D>();
-
-        //Make them the child of whatever object this script is on, preferably on the Camera so the objects move with the camera without extra scripting
-        topCollider.parent = transform;
-        bottomCollider.parent = transform;
-        rightCollider.parent = transform;
-        leftCollider.parent = transform;
-        */
-
         //Generate world space point information for position and scale calculations
         cameraPos = Camera.main.transform.position;
         screenSize.x = Vector2.Distance(Camera.main.ScreenToWorldPoint(new Vector2(0, 0)), Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0))) * 0.5f;
