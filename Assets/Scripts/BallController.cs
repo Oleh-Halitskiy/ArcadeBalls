@@ -7,9 +7,13 @@ public class BallController : MonoBehaviour
     [Header("Magnet settings")]
     [SerializeField] private float MagnetRadius = 5;
     [SerializeField] private float MagnetForce = 5;
+    [SerializeField] private GameObject Explosion;
     private List<GameObject> ballsToDestroy;
     private bool canDestroy;
+    private bool test;
     public bool isFromPlayer;
+    public bool canExplode;
+    
     public float MgtRadius
     {
         get { return MagnetRadius; }
@@ -17,8 +21,10 @@ public class BallController : MonoBehaviour
     }
     private void Start()
     {
+        canExplode = true;
         ballsToDestroy = new List<GameObject>();
         ballsToDestroy.Add(gameObject);
+        
     }
     void FixedUpdate()
     {
@@ -37,7 +43,7 @@ public class BallController : MonoBehaviour
     }
     private void Update()
     {
-        StackDestroy();
+      StackDestroy();
     }
 
     private void StackDestroy()
@@ -49,34 +55,66 @@ public class BallController : MonoBehaviour
                 if (gameObj != null)
                 {
                     gameObj.GetComponent<BallController>().Explode();
+                 
                 }
             }
         }
     }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == gameObject.tag)
+        if (collision.gameObject.GetComponent<BallController>() != null)
         {
-            ballsToDestroy.Add(collision.gameObject);
-            if(collision.gameObject.GetComponent<BallController>().isFromPlayer == true)
+          /*
+            foreach (ContactPoint2D contact in collision.contacts)
             {
-                canDestroy = true;
-                return;
+                FixedJoint2D fixedJoint = gameObject.AddComponent<FixedJoint2D>();
+                fixedJoint.anchor = contact.point;
+                fixedJoint.connectedBody = collision.rigidbody;
+            }
+          */
+            if (collision.gameObject.tag == gameObject.tag)
+            {
+                collision.gameObject.transform.parent = gameObject.transform;
+                ballsToDestroy.Add(collision.gameObject);
+                test = true;
+                if (collision.gameObject.GetComponent<BallController>().isFromPlayer == true)
+                {
+                    canDestroy = true;
+                    return;
+                }
             }
         }
     }
-    private void OnCollisionExit2D(Collision2D collision)
+    public void AddToList(GameObject ball)
     {
-        if(collision.gameObject.tag == gameObject.tag)
-        {
-            ballsToDestroy.Remove(collision.gameObject);
-        }
+        ballsToDestroy.Add(ball);
     }
     private void Explode()
     {
-        EventManager.StartPointAddedEvent(10);
-        Destroy(gameObject, 0.01f);
+        Destroy(gameObject, 0.3f);
+    }
+    private void OnDrawGizmos()
+    {
+
+        if (test)
+            Gizmos.DrawWireSphere(transform.position, 0.5f);
+    }
+    private void OnDestroy()
+    {
+        if (canExplode)
+        {
+            EventManager.StartPointAddedEvent(10);
+            // Instantiate(Explosion, transform.position, transform.rotation); // explosions here 
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == gameObject.tag)
+        {
+            test = false;
+            ballsToDestroy.Remove(collision.gameObject);
+            //ballsToDestroy.Remove(gameObject);
+        }
     }
 }
 

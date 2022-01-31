@@ -101,8 +101,8 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!58 &2801624888198525121
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -132,5 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MagnetRadius: 1
-  MagnetForce: 1600
+  MagnetForce: 2000
+  Explosion: {fileID: 1000011797152326, guid: acf39d9f4addf294d93fa56fa373961b, type: 3}
   isFromPlayer: 0
+  canExplode: 0

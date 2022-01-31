@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour
         CalculateDirection();
         Shoot(direction, rotationZ);
         ShowNextBall(false);
+        nextBall1.GetComponent<BallController>().canExplode = false;
+        nextBall2.GetComponent<BallController>().canExplode = false;
     }
     private void CalculateDirection()
     {
